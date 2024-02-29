@@ -1,0 +1,12 @@
+doctype html
+html(lang='en')
+    head
+        title Entity List
+        link(rel='stylesheet', href='/styles.css')
+    body
+        h1 Entity List
+        ul
+            each entity in entities
+                li
+                    a(href=`/${entity._id}`) #{entity.name}
+        a(href='/new') Add New Entity

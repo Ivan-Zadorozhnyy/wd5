@@ -1,0 +1,16 @@
+doctype html
+html(lang='en')
+    head
+        title Create New Entity
+        link(rel='stylesheet', href='/styles.css')
+    body
+        h1 Create New Entity
+        form(action='/' method='post')
+            div
+                label(for='name') Name:
+                input(type='text' id='name' name='name' required)
+            div
+                label(for='description') Description:
+                textarea(id='description' name='description')
+            div
+                button(type='submit') Submit
