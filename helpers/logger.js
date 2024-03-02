@@ -17,6 +17,12 @@ const logger = createLogger({
     ],
 });
 
+const winstonStream = {
+    write: (message) => {
+        logger.info(message.trim());
+    },
+};
+
 if (process.env.NODE_ENV !== 'production') {
     logger.add(new transports.Console({
         format: format.simple()

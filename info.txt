@@ -1,4 +1,4 @@
-API provides ability to create, review, update and delete entities consisting of name and description.
+API provides ability to create, review, update and delete entities consisting of name and description
 
 DB:
 the database chosen is MongoDB, it was chosen because of its easy-to-use functionality and accessibility
@@ -34,3 +34,70 @@ update entity(POST /update/:id): Updates an existing entity identified by id. Th
 }
 
 delete entity(POST /delete/:id): Deletes the entity identified by id. No request body is required.
+
+
+ Logging, Error Handling, Caching, and Performance:
+
+Logging with winston:
+I have implemented comprehensive logging using the Winston library. Winston allows for customizable logging levels and transports,
+which means logs can be directed to different locations based on their severity.
+
+Setting up:
+Winston is configured in logger.js
+error.log: Captures all errors.
+combined.log: Captures logs of all levels including info, warn, and debug.
+
+HTTP request logging:
+I integrated Winston with Morgan for HTTP request logging. This captures details about incoming requests and shows
+them in console during development. In production, these logs are written to the combined.log file.
+
+Unhandled exceptions and promise rejections:
+Global handlers for unhandled exceptions and promise rejections are added to app.js. These handlers log the errors and
+then exit the application.
+
+Error handling:
+Centralized error handling is implemented in app.js using Express middleware. This approach captures any errors that
+occur in the route handlers and formats them into a consistent structure before sending the response back to the client.
+
+Structured error responses:
+Error responses are structured with status and message properties. In development, the error stack is also included to aid in debugging.
+
+Caching with node-cache:
+node-cache is used for in-memory caching to improve the performance of the application.
+
+Caching strategy:
+The list of entities fetched from the database is cached to reduce the number of database calls. The cache is set with
+a default TTL and is invalidated on any operation that modifies the data (create, update, delete).
+
+Performance monitoring:
+Performance monitoring is set up using node-clinic, which provides insights into the application's performance,
+such as response times and system resource usage.
+
+Usage:
+clinic doctor -- node app.js
+
+Load testing with Artillery:
+Artillery is used for load testing to ensure that the application can handle high traffic.
+
+Load testing scripts:
+Scripts for Artillery are defined in loadtest.yml, simulating the expected usage patterns and traffic load.
+
+Usage:
+npx artillery run loadtest.yml  (ran locally due to load problems, to load locallly:  npm install artillery --save-dev)
+
+Security Considerations:
+Sensitive information is removed from logs and error messages in production.
+Secure caching practices are in place to prevent unauthorized access to cached data.
+
+Guide:
+Adding new logs: to add new logs, use the logger methods such as logger.info(), logger.warn(), logger.error(), and logger.debug()
+Error handling: to handle errors, throw an error with the appropriate message and status code. The centralized error handler
+will take care of logging and sending the response.
+Maintaining caching: when adding new routes or modifying data, ensure the cache is invalidated correctly by calling myCache.del('key').
+Performance analysis: regularly analyze performance using Clinic and make necessary optimizations based on the findings.
+Load testing: update loadtest.yml to reflect any new endpoints or changes in application usage.
+Re-run load tests after significant changes to the codebase.
+
+
+
+

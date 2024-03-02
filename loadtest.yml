@@ -1,0 +1,15 @@
+config:
+  target: 'http://localhost:3000'
+  phases:
+    - duration: 60
+      arrivalRate: 10
+
+scenarios:
+  - flow:
+      - get:
+          url: "/"
+      - post:
+          url: "/new"
+          json:
+            name: "Sample Entity"
+            description: "This is just a test."
