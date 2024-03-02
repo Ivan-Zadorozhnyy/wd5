@@ -1,0 +1,36 @@
+API provides ability to create, review, update and delete entities consisting of name and description.
+
+DB:
+the database chosen is MongoDB, it was chosen because of its easy-to-use functionality and accessibility
+connection to MongoDB:
+const mongoose = require('mongoose');
+
+mongoose.connect(process.env.MONGO_URI)
+    .then(() => console.log('MongoDB connection successful'))
+    .catch(err => console.error('MongoDB connection error:', err));
+
+Models:
+here I create schema for my entity:
+const entitySchema = new mongoose.Schema({
+    name: { type: String, required: true },
+    description: { type: String, required: false },
+});
+
+and then create the model itself:
+const Entity = mongoose.model('Entity', entitySchema);
+
+Endpoints (all endpoint could be accessed from web page, for ease of usage):
+list entities(GET /): Retrieves a list of all entities in the database. No request body is required.
+
+create entity(POST /): Creates a new entity. The request body should be in JSON format:
+{
+  "name": "Entity Name",
+  "description": "Entity Description"
+}
+
+update entity(POST /update/:id): Updates an existing entity identified by id. The request body should specify the fields to update:
+{
+  "description": "Updated Description"
+}
+
+delete entity(POST /delete/:id): Deletes the entity identified by id. No request body is required.

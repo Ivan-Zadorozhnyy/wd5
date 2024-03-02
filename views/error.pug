@@ -1,0 +1,10 @@
+doctype html
+html(lang='en')
+    head
+        title Error
+        link(rel='stylesheet', href='/styles.css')
+    body
+        .error-container
+            h1 An Error Occurred
+            p.error-message= error.message || "An unexpected error has occurred."
+            a.return-home(href='/') Return to Home

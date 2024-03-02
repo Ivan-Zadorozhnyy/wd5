@@ -7,4 +7,9 @@ html(lang='en')
         h1 Entity Details
         p Name: #{entity.name}
         p Description: #{entity.description}
-        // Add more fields as necessary
+        form(action='/delete/' + entity._id method='post')
+            button(type="submit") Delete
+        a(href="/edit/" + entity._id) Edit
+
+
+

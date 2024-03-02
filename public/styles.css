@@ -1,9 +1,22 @@
 body {
     font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
 }
 
 h1 {
     color: #333;
+}
+
+.error-container {
+    text-align: center;
+    padding: 50px;
+}
+
+.error-message {
+    color: red;
+    margin: 20px 0;
 }
 
 ul {
@@ -35,6 +48,9 @@ input[type='text'],
 textarea {
     width: 100%;
     padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
 }
 
 button {
@@ -48,4 +64,16 @@ button {
 
 button:hover {
     background-color: navy;
+}
+
+.form-error {
+    color: red;
+    font-size: 0.8em;
+}
+
+.return-home {
+    display: block;
+    margin-top: 20px;
+    color: blue;
+    font-size: 1.2em;
 }
